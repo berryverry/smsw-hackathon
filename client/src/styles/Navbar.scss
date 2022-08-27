@@ -1,0 +1,20 @@
+@use 'base';
+
+.container {
+  background-color: base.$color-primary;
+}
+
+.nav-button {
+  margin: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border-style: solid;
+  border-width: 1px;
+  color: black;
+  border-color: base.$color-secondary;
+  background: linear-gradient(
+    150deg,
+    base.$color-primary 0%,
+    base.$color-secondary 100%
+  );
+}
