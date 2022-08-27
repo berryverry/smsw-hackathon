@@ -1,3 +1,5 @@
+import '../styles/form.scss';
+
 const LoginPage = () => {
   return (
     <>

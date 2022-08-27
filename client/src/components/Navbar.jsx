@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import '../styles/global.scss';
 import '../styles/Navbar.scss';
 
 const Navbar = () => {
@@ -7,7 +6,7 @@ const Navbar = () => {
     <header>
       <div className="flex container">
         <Link to="/" className="text-2xl m-3">
-          <a>Metaverse Project</a>
+          Metaverse Project
         </Link>
         <div className="flex absolute r-0">
           <Link to="/about" className="nav-button">

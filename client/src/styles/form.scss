@@ -1,3 +1,5 @@
+@use 'base';
+
 body {
   background-color: #1f833e;
   font-family: 'Roboto', sans-serif;
@@ -31,21 +33,21 @@ h4 {
 form {
   width: 300px;
   margin-left: 20px;
-}
 
-form label {
-  display: flex;
-  margin-top: 20px;
-  font-size: 18px;
-}
+  label {
+    display: flex;
+    margin-top: 20px;
+    font-size: 18px;
+  }
 
-form input {
-  width: 100%;
-  padding: 7px;
-  border: none;
-  border: 1px solid cornflowerblue;
-  border-radius: 6px;
-  outline: none;
+  input {
+    width: 100%;
+    padding: 7px;
+    border: none;
+    border: 1px solid cornflowerblue;
+    border-radius: 6px;
+    outline: none;
+  }
 }
 
 input[type='button'] {
@@ -53,7 +55,7 @@ input[type='button'] {
   height: 35px;
   margin-top: 20px;
   border: none;
-  background-color: #49c1a2;
+  background-color: base.$color-accent;
   color: white;
   font-size: 18px;
 }
@@ -69,8 +71,8 @@ p {
   color: white;
   font-size: 15px;
   margin-top: -10px;
-}
 
-.para-2 a {
-  color: #49c1a2;
+  a {
+    color: base.$color-accent;
+  }
 }

@@ -3,6 +3,8 @@ import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/Login';
 import Register from './pages/Register';
+import IndexPage from './pages/Index';
+
 const App = () => {
   return (
     <>
@@ -10,7 +12,7 @@ const App = () => {
         <Navbar />
         <main>
           <Routes>
-            <Route path="/" element={<h1>Index</h1>} />
+            <Route path="/" element={<IndexPage />} />
             <Route path="/signin" element={<LoginPage />} />
             <Route path="/signup" element={<Register />} />
             <Route path="*" element={<h1>Page Not Found</h1>} />
