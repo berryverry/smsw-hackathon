@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.port || 5000;
+const port = process.env.PORT || 5000;
 const cors = require('cors');
 const mongoose = require('mongoose');
 if (process.env.NODE_ENV !== 'production') {
@@ -10,7 +10,7 @@ const { User } = require('./models/User');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors({ origin: `${process.env.CLIENT_DOMAIN}` }));
+app.use(cors({ credentials: true, origin: `${process.env.CLIENT_DOMAIN}` }));
 
 mongoose
   .connect(`${process.env.MONGO_URI}`, {
@@ -58,7 +58,12 @@ app.post('/login', (req, res) => {
           .generateToken()
           .then((user) => {
             res
-              .cookie('x_auth', user.token)
+              .cookie('x_auth', user.token, {
+                httpOnly: true,
+                maxAge: 24 * 60 * 60 * 1000, // 1 day,
+                sameSite: 'none',
+                secure: process.env.NODE_ENV === 'production',
+              })
               .status(200)
               .json({ loginSuccess: true, userId: user._id });
           })
