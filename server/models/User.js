@@ -1,21 +1,24 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 const userSchema = mongoose.Schema({
   name: {
     type: String,
     maxlength: 50,
+    require: true,
   },
   email: {
     type: String,
     trim: true,
     unique: 1,
+    require: true,
   },
   password: {
     type: String,
     minLength: 4,
+    reuqire: true,
   },
   lastName: {
     type: String,
@@ -34,10 +37,10 @@ const userSchema = mongoose.Schema({
   },
 });
 
-userSchema.pre("save", function (next) {
+userSchema.pre('save', function (next) {
   let user = this;
 
-  if (user.isModified("password")) {
+  if (user.isModified('password')) {
     bcrypt.genSalt(saltRounds, function (err, salt) {
       if (err) return next(err);
       bcrypt.hash(user.password, salt, function (err, hash) {
@@ -59,13 +62,13 @@ userSchema.methods.comparePassword = function (plainPassword) {
 };
 
 userSchema.methods.generateToken = function () {
-  const token = jwt.sign(this._id.toHexString(), "secretToken");
+  const token = jwt.sign(this._id.toHexString(), `${process.env.JWT_TOKEN}`);
   this.token = token;
   return this.save()
     .then((user) => user)
     .catch((err) => err);
 };
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = { User };
