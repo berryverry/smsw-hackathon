@@ -13,9 +13,10 @@ const loginAPI = async ({ email, password }) => {
   return data;
 };
 
-const registerAPI = async ({ name, email, password }) => {
+const registerAPI = async ({ name, lastName, email, password }) => {
   const { data } = Axios.post('/register', {
     name,
+    lastName,
     email,
     password,
   });
