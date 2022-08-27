@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
+const Schema = mongoose.Schema;
 
-const userSchema = mongoose.Schema({
+const userSchema = new Schema({
   name: {
     type: String,
     maxlength: 50,
@@ -18,7 +19,7 @@ const userSchema = mongoose.Schema({
   password: {
     type: String,
     minLength: 4,
-    reuqire: true,
+    require: true,
   },
   lastName: {
     type: String,
@@ -70,5 +71,4 @@ userSchema.methods.generateToken = function () {
 };
 
 const User = mongoose.model('User', userSchema);
-
 module.exports = { User };
