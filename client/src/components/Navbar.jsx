@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import '../styles/Navbar.scss';
+import { AuthContext } from './AuthProvider';
+import { useContext } from 'react';
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
   return (
     <header>
       <div className="flex container">
@@ -18,22 +21,29 @@ const Navbar = () => {
           <Link to="/community" className="nav-button">
             Community
           </Link>
-          <Link to="/signin" className="nav-button">
-            Sign in
-          </Link>
-          <Link to="/signup" className="nav-button">
-            Sign up
-          </Link>
-          <a className="nav-button">Log out</a>
-          <Link to="/quiz" className="nav-button">
-            Quiz
-          </Link>
-          <Link to="/play" className="nav-button">
-            Play
-          </Link>
-          <Link to="/profile" className="nav-button">
-            Profile
-          </Link>
+          {!user ? (
+            <>
+              <Link to="/signin" className="nav-button">
+                Sign in
+              </Link>
+              <Link to="/signup" className="nav-button">
+                Sign up
+              </Link>
+            </>
+          ) : (
+            <>
+              <a className="nav-button">Log out</a>
+              <Link to="/quiz" className="nav-button">
+                Quiz
+              </Link>
+              <Link to="/play" className="nav-button">
+                Play
+              </Link>
+              <Link to="/profile" className="nav-button">
+                Profile
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>
