@@ -1,0 +1,28 @@
+$color-primary: #03d76d;
+$color-secondary: #0a8a4a;
+$color-accent: #49c1a2;
+
+html,
+body,
+#root,
+main {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.canvas-container {
+  background-color: black;
+  width: 100%;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+a:visited {
+  color: black;
+}
