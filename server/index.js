@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const cors = require('cors');
 const mongoose = require('mongoose');
+const authMiddleware = require('./authmiddleware');
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
@@ -13,6 +14,10 @@ const { Comment } = require('./models/Comment');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({ credentials: true, origin: `${process.env.CLIENT_DOMAIN}` }));
+app.use('/board', authMiddleware);
+app.use('/comment', authMiddleware);
+app.use('/profile', authMiddleware);
+app.use('/quiz', authMiddleware);
 
 mongoose
   .connect(`${process.env.MONGO_URI}`, {
@@ -29,6 +34,7 @@ mongoose
 app.get('/', (request, response) => {
   response.send('성공입니다.');
 });
+
 
 app.post('/register', (req, res) => {
   const user = new User(req.body);
@@ -77,6 +83,9 @@ app.post('/login', (req, res) => {
   });
 });
 
+app.post('/logout', (req, res) => {
+  return res.cookie('x_auth', "").json({ logoutSuccess: true });
+});
 
 //게시글 작성
 app.post('/board/write', function (req, res) {
