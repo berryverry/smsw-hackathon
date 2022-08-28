@@ -94,7 +94,7 @@ const Register = () => {
         </p>
       </div>
       <p className="para-2">
-        Already have an account? <Link to="/singin">Login here</Link>
+        Already have an account? <Link to="/signin">Login here</Link>
       </p>
     </>
   );

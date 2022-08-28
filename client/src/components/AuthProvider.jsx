@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import Axios from 'axios';
+import { useState } from 'react';
 import { createContext } from 'react';
 
 export const AuthContext = createContext();
@@ -24,11 +25,14 @@ const registerAPI = async ({ name, lastName, email, password }) => {
 };
 
 const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
   const loginMutation = useMutation(loginAPI);
   const registerMutation = useMutation(registerAPI);
 
   return (
-    <AuthContext.Provider value={{ loginMutation, registerMutation }}>
+    <AuthContext.Provider
+      value={{ user, setUser, loginMutation, registerMutation }}
+    >
       {children}
     </AuthContext.Provider>
   );
