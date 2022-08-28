@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const cors = require('cors');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const authMiddleware = require('./authmiddleware');
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -13,11 +14,13 @@ const { Comment } = require('./models/Comment');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors({ credentials: true, origin: `${process.env.CLIENT_DOMAIN}` }));
 app.use('/board', authMiddleware);
 app.use('/comment', authMiddleware);
 app.use('/profile', authMiddleware);
 app.use('/quiz', authMiddleware);
+app.use('/user', authMiddleware);
 
 mongoose
   .connect(`${process.env.MONGO_URI}`, {
@@ -34,7 +37,6 @@ mongoose
 app.get('/', (request, response) => {
   response.send('성공입니다.');
 });
-
 
 app.post('/register', (req, res) => {
   const user = new User(req.body);
@@ -83,8 +85,21 @@ app.post('/login', (req, res) => {
   });
 });
 
+app.get('/user', async (req, res) => {
+  try {
+    const user = await User.findOne({ _id: req.tokenInfo });
+    const { password, ...data } = await user.toJSON();
+
+    return res.send(data);
+  } catch (err) {
+    return res.status(401).send({
+      message: 'unauthenticated',
+    });
+  }
+});
+
 app.post('/logout', (req, res) => {
-  return res.cookie('x_auth', "").json({ logoutSuccess: true });
+  return res.cookie('x_auth', '').json({ logoutSuccess: true });
 });
 
 //게시글 작성
@@ -95,7 +110,7 @@ app.post('/board/write', function (req, res) {
   board.author = req.body.author;
 
   board.save(function (err) {
-    if(err){
+    if (err) {
       console.log(err);
       res.redirect('/');
     }
@@ -104,21 +119,21 @@ app.post('/board/write', function (req, res) {
 });
 
 //게시글 리스트 보기
-app.get('/board/list', function(req, res){
-  let posts = Board.find( function(err, posts){
-    if(err){
+app.get('/board/list', function (req, res) {
+  let posts = Board.find(function (err, posts) {
+    if (err) {
       return res.status(400).json({
         boardListSuccess: false,
         message: '게시글 검색에 실패하였습니다.',
       });
     }
     return res.status(200).json({ posts });
-  })
+  });
 });
 
 //seq로 게시글 상세보기
 app.get('/board/:seq', function (req, res) {
-  Board.findOne({seq: req.params.seq}, function (err, board) {
+  Board.findOne({ seq: req.params.seq }, function (err, board) {
     if (err) {
       return res.status(400).json({
         boardSuccess: false,
@@ -126,22 +141,26 @@ app.get('/board/:seq', function (req, res) {
       });
     }
     return res.status(200).json({ board });
-  })
+  });
 });
 
 //댓글 작성
-app.post('/comment/:seq/write', function (req, res){
+app.post('/comment/:seq/write', function (req, res) {
   const comment = new Comment();
   comment.contents = req.body.contents;
   comment.author = req.body.author;
 
-  Board.findOneAndUpdate({seq : req.params.seq}, { $push: { comments : comment}}, function (err, board) {
-    if(err){
-      console.log(err);
-      res.redirect('/');
-    }
-    res.redirect('/board/'+req.params.seq);
-  });
+  Board.findOneAndUpdate(
+    { seq: req.params.seq },
+    { $push: { comments: comment } },
+    function (err, board) {
+      if (err) {
+        console.log(err);
+        res.redirect('/');
+      }
+      res.redirect('/board/' + req.params.seq);
+    },
+  );
 });
 
 app.listen(port, () => console.log(`listening on port ${port}`));
