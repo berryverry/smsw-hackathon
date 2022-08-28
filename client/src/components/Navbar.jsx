@@ -4,7 +4,7 @@ import { AuthContext } from './AuthProvider';
 import { useContext } from 'react';
 
 const Navbar = () => {
-  const { userQuery, logoutMutation } = useContext(AuthContext);
+  const { user, userQuery, logoutMutation } = useContext(AuthContext);
 
   if (userQuery.isLoading) return <h1>Data is loading...</h1>;
   if (logoutMutation.isLoading) return <h1>Logout processing</h1>;
@@ -27,7 +27,7 @@ const Navbar = () => {
           <Link to="/play" className="nav-button">
             Play
           </Link>
-          {userQuery.isError ? (
+          {!user ? (
             <>
               <Link to="/signin" className="nav-button">
                 Sign in
