@@ -5,12 +5,11 @@ import { useContext } from 'react';
 
 const Navbar = () => {
   const { userQuery, logoutMutation } = useContext(AuthContext);
-
+  console.log(userQuery.data?.name);
   if (userQuery.isLoading) return <h1>Data is loading...</h1>;
   if (logoutMutation.isLoading) return <h1>Logout processing</h1>;
   return (
     <header>
-      {userQuery?.data?.name}
       <div className="flex container">
         <Link to="/" className="text-2xl m-3">
           Metaverse Project
@@ -19,11 +18,14 @@ const Navbar = () => {
           <Link to="/about" className="nav-button">
             About
           </Link>
-          <Link to="/faq" className="nav-button">
+          {/*<Link to="/faq" className="nav-button">
             FAQ
           </Link>
           <Link to="/community" className="nav-button">
             Community
+  </Link>*/}
+          <Link to="/play" className="nav-button">
+            Play
           </Link>
           {userQuery.isError ? (
             <>
