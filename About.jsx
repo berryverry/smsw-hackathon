@@ -9,7 +9,7 @@ import Img6 from '../assets/img6.jpg'
 
 import {Link} from 'react-router-dom'
 
-const Insight = () => {
+const About = () => {
     return (
     <body>
 
@@ -129,4 +129,4 @@ const Insight = () => {
     )
 }
 
-export default Insight
+export default About
