@@ -1,3 +1,7 @@
+import panda from '/src/assets/panda.jpg';
+import red_crane from 'src/assets/red-crane.jpg';
+import sea from 'src/assets/sea.jpg';
+
 const basePath = '/src/assets/';
 
 export const fileName = [
