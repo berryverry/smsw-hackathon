@@ -57,4 +57,4 @@ const Map = () => {
 
 export default Map;
 
-useGLTF.preload('/src/assets/scene.gltf');
+//useGLTF.preload('/src/assets/scene.gltf');
