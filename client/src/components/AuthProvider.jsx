@@ -47,6 +47,7 @@ const AuthProvider = ({ children }) => {
   const logoutMutation = useMutation(logoutAPI);
 
   if (userQuery.data) {
+    console.log(userQuery.data);
     setUser(userQuery.data);
   }
 
