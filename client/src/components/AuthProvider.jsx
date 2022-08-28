@@ -48,9 +48,8 @@ const AuthProvider = ({ children }) => {
 
   if (userQuery.data) {
     setUser(userQuery.data);
-  } else {
-    setUser(null);
   }
+
   return (
     <AuthContext.Provider
       value={{
