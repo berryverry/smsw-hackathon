@@ -37,21 +37,20 @@ const userAPI = async () => {
 const AuthProvider = ({ children }) => {
   const queryClient = useQueryClient();
   const [user, setUser] = useState(null);
-  const userQuery = useQuery(['user'], userAPI, {
-    onSuccess: (data) => {
-      console.log(data);
-      setUser(data);
-    },
-    onError: () => setUser(undefined),
-  });
+  const userQuery = useQuery(['user'], userAPI);
   const loginMutation = useMutation(loginAPI, {
     onSuccess: () => {
-      queryClient.invalidateQueries('user');
+      queryClient.invalidateQueries(['user']);
     },
   });
   const registerMutation = useMutation(registerAPI);
   const logoutMutation = useMutation(logoutAPI);
 
+  if (userQuery.data) {
+    setUser(userQuery.data);
+  } else {
+    setUser(null);
+  }
   return (
     <AuthContext.Provider
       value={{
