@@ -28,7 +28,7 @@ const Earth = (props) => {
   return (
     <>
       <mesh ref={cloudRef}>
-        <sphereGeometry args={[1, 32, 32]} />
+        <sphereGeometry args={[1.42, 32, 32]} />
         <meshPhongMaterial
           map={cloudMap}
           opacity={0.4}
@@ -38,7 +38,7 @@ const Earth = (props) => {
         />
       </mesh>
       <mesh ref={earthRef}>
-        <sphereGeometry args={[1, 32, 32]} />
+        <sphereGeometry args={[1.4, 32, 32]} />
         <meshPhongMaterial specularMap={specularMap} />
         <meshStandardMaterial
           map={dayMap}

@@ -3,6 +3,7 @@ import { Suspense } from 'react';
 import { Stars } from '@react-three/drei';
 import Earth from '../components/three-components/Earth';
 import IndexText from '../components/indexText';
+import Loader from '../components/three-components/Loader';
 
 const IndexPage = () => {
   return (
@@ -19,7 +20,7 @@ const IndexPage = () => {
           saturation={0}
           fade={true}
         />
-        <Suspense fallback={null}>
+        <Suspense fallback={<Loader />}>
           <Earth />
         </Suspense>
       </Canvas>
