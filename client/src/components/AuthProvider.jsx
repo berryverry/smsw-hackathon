@@ -36,8 +36,14 @@ const userAPI = async () => {
 
 const AuthProvider = ({ children }) => {
   const queryClient = useQueryClient();
-  //const [user, setUser] = useState(null);
-  const userQuery = useQuery(['user'], userAPI);
+  const [user, setUser] = useState(null);
+  const userQuery = useQuery(['user'], userAPI, {
+    onSuccess: (data) => {
+      console.log(data);
+      setUser(data);
+    },
+    onError: () => setUser(undefined),
+  });
   const loginMutation = useMutation(loginAPI, {
     onSuccess: () => {
       queryClient.invalidateQueries('user');
@@ -48,7 +54,13 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ userQuery, loginMutation, registerMutation, logoutMutation }}
+      value={{
+        user,
+        userQuery,
+        loginMutation,
+        registerMutation,
+        logoutMutation,
+      }}
     >
       {children}
     </AuthContext.Provider>

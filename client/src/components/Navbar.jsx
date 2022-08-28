@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 const Navbar = () => {
   const { userQuery, logoutMutation } = useContext(AuthContext);
-  console.log(userQuery.data?.name);
+
   if (userQuery.isLoading) return <h1>Data is loading...</h1>;
   if (logoutMutation.isLoading) return <h1>Logout processing</h1>;
   return (
