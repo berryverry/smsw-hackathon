@@ -15,7 +15,7 @@ import Player from '../components/three-components/Player';
 import { useState } from 'react';
 import Plane from '../components/three-components/Plane';
 import Cube from '../components/three-components/Cube';
-import { fileName, fileLength } from '../lib/texture-file';
+import fileArr, { fileName, fileLength } from '../lib/texture-file';
 
 const Play = () => {
   const Cubes = () => {
@@ -67,7 +67,7 @@ const Play = () => {
                 <Cube
                   key={ind}
                   position={[val.x, val.y, val.z]}
-                  src={fileName[val.file]}
+                  src={fileArr[val.file]}
                 />
               );
             })}
