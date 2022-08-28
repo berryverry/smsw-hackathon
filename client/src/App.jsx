@@ -8,6 +8,7 @@ import Register from './pages/Register';
 import IndexPage from './pages/Index';
 import AuthProvider from './components/AuthProvider';
 import Play from './pages/Play';
+import Footer from './components/footer';
 
 const App = () => {
   const client = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => {
               <Route path="*" element={<h1>Page Not Found</h1>} />
             </Routes>
           </main>
+          <Footer />
         </Router>
       </AuthProvider>
     </QueryClientProvider>
