@@ -99,7 +99,7 @@ app.get('/user', async (req, res) => {
 });
 
 app.post('/logout', (req, res) => {
-  return res.cookie('x_auth', '').json({ logoutSuccess: true });
+  return res.cookie('x_auth', '', { maxAge: 0 }).json({ logoutSuccess: true });
 });
 
 //게시글 작성

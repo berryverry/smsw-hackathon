@@ -15,7 +15,8 @@ import Player from '../components/three-components/Player';
 import { useState } from 'react';
 import Plane from '../components/three-components/Plane';
 import Cube from '../components/three-components/Cube';
-import { fileName, fileLength } from '../components/lib/texture-file';
+import { fileName, fileLength } from '../lib/texture-file';
+
 const Play = () => {
   const Cubes = () => {
     let arr = [];

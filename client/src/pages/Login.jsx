@@ -14,6 +14,7 @@ const LoginPage = () => {
   };
 
   if (loginMutation.isLoading) return <h1>Wait for a second...</h1>;
+
   return (
     <>
       {loginMutation.isError && <p>error: {loginMutation.error.message}</p>}

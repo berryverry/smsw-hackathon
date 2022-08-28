@@ -2,7 +2,7 @@ import { useSphere } from '@react-three/cannon';
 import { useThree, useFrame } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import { Vector3 } from 'three';
-import useKeyabord from '../lib/useKeyboard';
+import useKeyabord from '../../lib/useKeyboard';
 
 const Player = (props) => {
   const keyMap = useKeyabord();

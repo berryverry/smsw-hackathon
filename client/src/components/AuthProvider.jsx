@@ -1,7 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Axios from 'axios';
-import { useState } from 'react';
+import { useEffect } from 'react';
+//import { useState } from 'react';
 import { createContext } from 'react';
 
 export const AuthContext = createContext();
@@ -24,14 +24,31 @@ const registerAPI = async ({ name, lastName, email, password }) => {
   return data;
 };
 
+const logoutAPI = async () => {
+  const { data } = Axios.post('/logout');
+  return data;
+};
+
+const userAPI = async () => {
+  const { data } = Axios.get('/user');
+  return data;
+};
+
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const loginMutation = useMutation(loginAPI);
+  const queryClient = useQueryClient();
+  //const [user, setUser] = useState(null);
+  const userQuery = useQuery(['user'], userAPI);
+  const loginMutation = useMutation(loginAPI, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('user');
+    },
+  });
   const registerMutation = useMutation(registerAPI);
+  const logoutMutation = useMutation(logoutAPI);
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, loginMutation, registerMutation }}
+      value={{ userQuery, loginMutation, registerMutation, logoutMutation }}
     >
       {children}
     </AuthContext.Provider>

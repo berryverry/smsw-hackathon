@@ -4,9 +4,13 @@ import { AuthContext } from './AuthProvider';
 import { useContext } from 'react';
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { userQuery, logoutMutation } = useContext(AuthContext);
+
+  if (userQuery.isLoading) return <h1>Data is loading...</h1>;
+  if (logoutMutation.isLoading) return <h1>Logout processing</h1>;
   return (
     <header>
+      {userQuery?.data?.name}
       <div className="flex container">
         <Link to="/" className="text-2xl m-3">
           Metaverse Project
@@ -21,7 +25,7 @@ const Navbar = () => {
           <Link to="/community" className="nav-button">
             Community
           </Link>
-          {!user ? (
+          {userQuery.isError ? (
             <>
               <Link to="/signin" className="nav-button">
                 Sign in
@@ -32,7 +36,9 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <a className="nav-button">Log out</a>
+              <a className="nav-button" onClick={logoutMutation.mutate()}>
+                Log out
+              </a>
               <Link to="/quiz" className="nav-button">
                 Quiz
               </Link>
