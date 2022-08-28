@@ -35,11 +35,11 @@
 
 사용한 기술 스택:
 
-| frontend(client)       | React.js Three.js React-Query React-Three/fiber, drei, cannon |
-| ---------------------- | ------------------------------------------------------------- |
-| backend(server)        | node.js express                                               |
-| DB                     | Mongo DB Atlas                                                |
-| Deploy (Cloud Service) | Netlify Cloudtype                                             |
+| frontend(client)       | React.js Three.js React-Query React-Three/fiber, drei, cannon, vite |
+| ---------------------- | ------------------------------------------------------------------- |
+| backend(server)        | node.js express                                                     |
+| DB                     | Mongo DB Atlas                                                      |
+| Deploy (Cloud Service) | Netlify Cloudtype                                                   |
 
 ## 🔶기대 효과
 
