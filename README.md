@@ -1,4 +1,4 @@
-# 🌍 CubeVerse
+# 🌍 CubeVerse (Hackathon Project)
 
 > A 3D virtual world for coexisting with nature
 
